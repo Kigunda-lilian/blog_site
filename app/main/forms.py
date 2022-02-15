@@ -14,7 +14,6 @@ class SignupForm(FlaskForm):
     username = StringField('username',validators=[InputRequired(),Length(min=5 ,max=25)])
     email= StringField('email',validators=[InputRequired(),Email(message ='invalid email'),Length(min=8 ,max=25)])
     password =PasswordField('password',validators=[InputRequired(),Length(min=5 , max=8)])
-    # confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('password')])
     remember_me = BooleanField('Remember me')
     submit = SubmitField('Sign Up')
     
