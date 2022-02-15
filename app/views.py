@@ -10,7 +10,8 @@ from flask_login import login_required,logout_user,login_user,current_user
 
 
 
-@app.route("/")#view function
+@app.route("/")
+#view function
 def home():
    db.create_all()
    return render_template('index.html')
