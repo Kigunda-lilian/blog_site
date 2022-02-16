@@ -1,25 +1,27 @@
-from main import LogInForm,SignupForm,PitchesForm,CommentsForm,UpdateProfileForm
+from .forms import LogInForm,SignupForm,QuotesForm,CommentsForm
 from flask import redirect, render_template ,request, url_for
-from app import app,db
-from app import User
-from app import fetch_quotes
+from .. import db
+from ..model import User
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import login_required,logout_user,login_user,current_user
+from . import main
+from ..request import fetch_quotes
 
 
-
-@app.route("/")
+@main.route("/")
 #view function
-def home():
-   db.create_all()
+
+def index():
+    
+    
+    Blogs=fetch_quotes()
    
     
-    
-   return render_template('index.html')
+    return render_template ('index.html',articles=Blogs)
 
 
 #login
-@app.route('/login',methods = ["GET","POST"])
+@main.route('/login',methods = ["GET","POST"])
 def login():
     
     form=LogInForm()
@@ -33,7 +35,7 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             next_page = request.args.get('next') 
-            return redirect(next_page) if next_page else redirect(url_for('home'))  
+            return redirect(next_page) if next_page else redirect(url_for('main.comments'))  
               
         print("Invalid username or password")
         print("Invalid username or password")
@@ -42,7 +44,7 @@ def login():
 
 
 #signup
-@app.route('/signup',methods = ["GET","POST"])
+@main.route('/signup',methods = ["GET","POST"])
 def signup():
     
     form = SignupForm()
@@ -62,18 +64,18 @@ def signup():
         print(user.username)
         print(user.password)
         
-        return redirect (url_for('login'))
+        return redirect (url_for('main.login'))
     
     return render_template("signup.html",registerform=form)
 
 
 #logout
-@app.route('/logout')
+@main.route('/logout')
 def logout():
     return redirect (url_for('home'))
 
 # #comments
-@app.route('/comments',methods = ["GET","POST"])
+@main.route('/comments',methods = ["GET","POST"])
 @login_required
 def comments():
     
@@ -82,13 +84,5 @@ def comments():
     return render_template("comments.html",feedbackform=form,name=current_user.username)
 
 
-@app.route('/blogs',methods = ["GET","POST"])
-def index():
-    
-    
-    Blogs=fetch_quotes()
-   
-    
-    return render_template ('index.html',articles=Blogs)
 
 

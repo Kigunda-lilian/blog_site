@@ -1,9 +1,6 @@
-from unicodedata import category
-from app.main import db
+from . import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
-from flask_login import login_manager
-from app.main import login_manager
 
 
 @login_manager.user_loader

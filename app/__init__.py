@@ -1,37 +1,37 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import scoped_session, sessionmaker
-from flask_login import LoginManager,login_user,login_required,logout_user,current_user
-from werkzeug.security import check_password_hash,generate_password_hash
+from config import config_options
 from flask_bootstrap import Bootstrap
-from app.config import  DevConfig
-from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_mail import Mail
+
+
+mail=Mail()
+
+login_manager = LoginManager()
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'auth.login'
+
+bootstrap = Bootstrap()
+db = SQLAlchemy()
+
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(config_options[config_name])
+
+    bootstrap.init_app(app)
+    db.init_app(app)
+    mail.init_app(app)
+    login_manager.init_app(app)
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
 
 
 
-#create an instance of my app
-app= Flask(__name__)
-db =SQLAlchemy(app)
-bootstrap = Bootstrap(app)
-migrate= Migrate(app,db)
+    
 
+    return app
 
-login_manager=LoginManager(app)
-login_manager.login_view = "login"
-
-
-#specify my db environment
-
-app.config['SECRET_KEY']='LILIAN'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI']
-
-# create my sqlAlchemy instance
-app.config.from_object(DevConfig)
-
-#create auth instance
-
-from app import views
 
 
 

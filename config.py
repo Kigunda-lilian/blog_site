@@ -1,13 +1,13 @@
 import os
-os.urandom(24)
+
+
+
 
 class Config:
-    # SECRET_KEY = 'mysecretket'
-    SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://moringa:lilian@localhost/apostgre'
+    SECRET_KEY = 'mysecretket'
+    SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://moringa:lilian@localhost/nashlil'
 
-    @staticmethod
-    def init_app(app):
-        pass
+    
 
 
 class ProdConfig(Config):
@@ -27,3 +27,11 @@ class DevConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
     DEBUG = True
+
+config_options = {
+
+    'development': DevConfig,
+    'production': ProdConfig,
+  
+
+}
