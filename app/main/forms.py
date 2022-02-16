@@ -25,3 +25,11 @@ class CommentsForm(FlaskForm):
     comment = TextAreaField('Comment', validators=[InputRequired()])
     submit = SubmitField('Comment')
     
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[InputRequired()])
+    category = SelectField('Pitch Category', choices=[('',''),('travel','travel'),('health','health'),
+    ('sports','sports'),('Promotion','Promotion'),('food','food'),
+    ('Passion','Passion')],validators=[InputRequired()])
+    post = TextAreaField('Pitch', validators=[InputRequired()])
+    submit = SubmitField('Post Pitch')
+    
