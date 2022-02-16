@@ -3,8 +3,10 @@ from wtforms import StringField,PasswordField,BooleanField, IntegerField,SubmitF
 from wtforms.validators import ValidationError, DataRequired,InputRequired,Length,Email,ValidationError,EqualTo
 
 class LogInForm(FlaskForm):
-    username = StringField('username',validators=[InputRequired(),Length(min=5,max=15)])
+   
+    email= StringField('email',validators=[InputRequired(),Email(message ='invalid email'),Length(min=8 ,max=25)])
     password =PasswordField('password',validators=[InputRequired(),Length(min=5 , max=8)])
+    remember = BooleanField('Remember me')
     submit = SubmitField('Log In')
    
     

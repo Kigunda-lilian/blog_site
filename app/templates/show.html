@@ -19,7 +19,9 @@
   
       <hr />
   
-  
+      <button class="btn btn-warning btn-lg"><a  href="{{url_for('main.edit',id=post.id)}}">Update</a></button>
+              
+      <button class="btn btn-danger btn-lg"><a  href="{{url_for('main.delete',id=post.id)}}">Delete</a></button>
   
           {%endfor%}
   

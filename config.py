@@ -5,7 +5,7 @@ import os
 
 class Config:
     SECRET_KEY = 'mysecretket'
-    SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://moringa:lilian@localhost/nashlil'
+    SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://moringa:lilian@localhost/nash'
 
     
 
